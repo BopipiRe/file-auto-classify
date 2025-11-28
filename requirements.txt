@@ -1,0 +1,8 @@
+fastapi==0.122.0
+jieba==0.42.1
+numpy==2.3.5
+pdfplumber==0.11.7
+python_docx==1.2.0
+scikit_learn==1.7.2
+sentence_transformers==5.1.2
+uvicorn==0.38.0
