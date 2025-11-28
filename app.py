@@ -41,8 +41,8 @@ class FastAPI(FastAPIBase):
 
 
 app = FastAPI(
-    title="软件功能分析系统",
-    description="从文档中提取功能及其所属系统模块",
+    title="文档标题分类服务",
+    description="基于语义嵌入和K-Means聚类的文档主题分类API服务",
     swagger_js_url="/static/swagger-ui-bundle.js",
     swagger_css_url="/static/swagger-ui.css",
 )
