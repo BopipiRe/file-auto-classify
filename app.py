@@ -132,7 +132,7 @@ class DocumentReader:
             return []
 
 
-@app.post("/classify-document/")
+@app.post("/classify-document")
 async def classify_document(file: UploadFile = File(...)):
     """
     接收文档文件并返回主题分类结果
