@@ -6,11 +6,11 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 from sklearn.cluster import KMeans
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics import silhouette_score, calinski_harabasz_score
+from sklearn.metrics import calinski_harabasz_score, silhouette_score
 
 
 def resource_path(path):
-    if hasattr(sys, '_MEIPASS'):
+    if hasattr(sys, "_MEIPASS"):
         return os.path.join(sys._MEIPASS, path)
     else:
         return os.path.join(os.path.abspath("."), path)
@@ -32,10 +32,7 @@ class Embedder:
 
         print("正在计算文档语义向量...")
         embeddings = self.model.encode(
-            documents,
-            batch_size=batch_size,
-            show_progress_bar=True,
-            normalize_embeddings=True
+            documents, batch_size=batch_size, show_progress_bar=True, normalize_embeddings=True
         )
         print(f"向量计算完成，维度: {embeddings.shape}")
         return embeddings
@@ -130,8 +127,9 @@ class KMeansCluster:
         return cluster_labels, kmeans
 
     @classmethod
-    def _generate_descriptive_name(cls, embeddings, cluster_labels, documents, label,
-                                   kmeans_model, top_k=3, max_name_length=20):
+    def _generate_descriptive_name(
+        cls, embeddings, cluster_labels, documents, label, kmeans_model, top_k=3, max_name_length=20
+    ):
         """
         自动生成聚类的描述性名称
 
@@ -174,11 +172,11 @@ class KMeansCluster:
                 words = jieba.cut(doc)
                 # 过滤停用词和单字
                 words = [w for w in words if len(w) > 1]
-                doc_words.append(' '.join(words))
+                doc_words.append(" ".join(words))
 
             if doc_words:
                 # 使用TF-IDF提取关键词
-                vectorizer = TfidfVectorizer(max_features=10, token_pattern=r'\S+')
+                vectorizer = TfidfVectorizer(max_features=10, token_pattern=r"\S+")
                 tfidf_matrix = vectorizer.fit_transform(doc_words)
                 feature_names = vectorizer.get_feature_names_out()
 
@@ -193,10 +191,10 @@ class KMeansCluster:
                 if top_words:
                     keywords = [word for word, score in top_words if score > 0.1]
                     if keywords:
-                        name = ' '.join(keywords[:3])
+                        name = " ".join(keywords[:3])
                         # 限制长度
                         if len(name) > max_name_length:
-                            name = name[:max_name_length] + '...'
+                            name = name[:max_name_length] + "..."
                         return name
 
         except Exception as e:
